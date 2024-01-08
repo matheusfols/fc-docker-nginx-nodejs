@@ -10,9 +10,10 @@ RUN apt-get update \
   && apt-get autoremove -yqq --purge wget && rm -rf /var/lib/apt/lists/*
 
 COPY package.json ./
-RUN yarn install
-RUN yarn global add nodemon
+RUN npm install --quiet
 
 COPY . .
 
 EXPOSE 5000
+
+# ENTRYPOINT ["./start.sh"]
