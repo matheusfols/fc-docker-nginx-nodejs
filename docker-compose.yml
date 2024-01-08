@@ -3,32 +3,43 @@ services:
   nginx:
     build:
       context: ./nginx
-    image: matheusfols/nginx-fc
     restart: always
     container_name: nginx
     ports:
       - "8080:80"
+    networks:
+      - node-network
+    depends_on:
+      - app
 
   app:
     build:
       context: ./node
     container_name: app
-    # entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 60s docker-entrypoint.sh
     tty: true
     networks:
       - node-network
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./node:/usr/src/app
     depends_on:
       - db
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
 
   db:
     image: mysql:5.7
     container_name: db
     restart: always
     tty: true
-    command: --innodb-use-native-aio=0
     environment:
-      - MYSQL_DATABASE=nodedb
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
     networks:
       - node-network
 
