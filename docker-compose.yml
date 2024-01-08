@@ -18,7 +18,7 @@ services:
       context: ./node
     container_name: app
     image: matheusfols/node-fc
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 60s yarn start
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 60s npm run start
     tty: true
     networks:
       - node-network
@@ -26,6 +26,7 @@ services:
       - "5000:5000"
     volumes:
       - ./node:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       - db
     environment:
