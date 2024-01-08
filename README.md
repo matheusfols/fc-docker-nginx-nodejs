@@ -1,3 +1,38 @@
-docker build -t matheusfols/node-fc -f $(pwd)/node/Dockerfile .
+# FULL CYCLE - Docker
 
-docker run -it -p 5000:5000 matheusfols/node-fc
+## Desafio Nginx com Node.js
+
+Nesse desafio você colocará em prática o que aprendemos em relação a utilização do nginx como proxy reverso. A idéia principal é que quando um usuário acesse o nginx, o mesmo fará uma chamada em nossa aplicação node.js. Essa aplicação por sua vez adicionará um registro em nosso banco de dados mysql, cadastrando um nome na tabela people.
+
+O retorno da aplicação node.js para o nginx deverá ser:
+
+    <h1>Full Cycle Rocks!</h1>
+
+- Lista de nomes cadastrada no banco de dados.
+
+Gere o docker-compose de uma forma que basta apenas rodarmos: docker-compose up -d que tudo deverá estar funcionando e disponível na porta: 8080.
+
+Suba tudo em um repositório e faça a entrega.
+
+- A linguagem de programação para este desafio é Node/JavaScript.
+
+## Repositório
+
+[https://bitbucket.org/matheus-fols-curso-full-cycle-30/nginx-com-node.js/src/main/](https://bitbucket.org/matheus-fols-curso-full-cycle-30/nginx-com-node.js/src/main/)
+
+## Como usar
+
+Após baixar o repositório executar:
+
+    docker-compose up -d --build
+
+Após a criação dos containers, pode demorar um tempo para iniciar o container do app, já que está aguardando o inicio do banco de dados.
+
+Obs.: Será criado automaticamente o banco de dados e a tabela people no banco.
+
+Verificar o status executando o comando
+
+    docker logs app
+
+Deve exibir o seguinte resultado: **Server is up and running**
+Agora só acessar: [http://localhost:8080](http://localhost:8080)
