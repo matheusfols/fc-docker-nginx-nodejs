@@ -4,6 +4,7 @@ services:
     build:
       context: ./nginx
     restart: always
+    image: matheusfols/nginx-fc
     container_name: nginx
     ports:
       - "8080:80"
@@ -16,6 +17,7 @@ services:
     build:
       context: ./node
     container_name: app
+    image: matheusfols/node-fc
     entrypoint: dockerize -wait tcp://db:3306 -timeout 60s yarn start
     tty: true
     networks:
