@@ -18,7 +18,8 @@ services:
       context: ./node
     container_name: app
     image: matheusfols/node-fc
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 60s npm run start
+    # entrypoint: dockerize -wait tcp://db:3306 -timeout 60s npm run start
+    entrypoint: wait-for db:3306 -t 40 -- npm run start
     tty: true
     networks:
       - node-network

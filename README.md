@@ -24,7 +24,7 @@ Suba tudo em um repositório e faça a entrega.
 
 Após baixar o repositório executar:
 
-    docker-compose up -d --build
+    docker-compose up
 
 Após a criação dos containers, pode demorar um tempo para iniciar o container do app, já que está aguardando o inicio do banco de dados.
 
